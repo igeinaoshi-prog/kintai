@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>出勤時間申請</title>
+<title>出勤時間</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="style.css">
@@ -46,7 +46,7 @@ function draw(){
   if (builtKey !== key){
     app.innerHTML = `
       <header class="top">
-        <div class="who"><span class="eyebrow">出勤時間申請</span><h1>${esc(staff.name)}</h1>${staff.no ? `<span class="idno">社員番号 ${esc(staff.no)}</span>` : ""}</div>
+        <div class="who"><span class="eyebrow">出勤時間</span><h1>${esc(staff.name)}</h1>${staff.no ? `<span class="idno">社員番号 ${esc(staff.no)}</span>` : ""}</div>
         <div class="monthnav"><button class="icon" id="prev" aria-label="前の月">‹</button><span class="label">${ymLabel(ym)}</span><button class="icon" id="next" aria-label="次の月">›</button></div>
       </header>
       <section class="panel summary" id="sum"></section>
