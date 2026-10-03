@@ -46,7 +46,7 @@ function draw(){
   if (builtKey !== key){
     app.innerHTML = `
       <header class="top">
-        <div class="who"><span class="eyebrow">出勤時間申請</span><h1>${esc(staff.name)}</h1><span class="idno">社員番号 ${esc(staff.no)}</span></div>
+        <div class="who"><span class="eyebrow">出勤時間申請</span><h1>${esc(staff.name)}</h1>${staff.no ? `<span class="idno">社員番号 ${esc(staff.no)}</span>` : ""}</div>
         <div class="monthnav"><button class="icon" id="prev" aria-label="前の月">‹</button><span class="label">${ymLabel(ym)}</span><button class="icon" id="next" aria-label="次の月">›</button></div>
       </header>
       <section class="panel summary" id="sum"></section>

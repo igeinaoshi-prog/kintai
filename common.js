@@ -67,8 +67,7 @@ export function buildSheet(host, empId, ym, asAdmin){
     <tr><th>入</th><th>退</th><th>休憩</th><th>勤務時間</th></tr></thead>
     <tbody>${rows}</tbody>
     <tfoot><tr><td colspan="5" style="text-align:right">合計</td><td class="h tot"></td></tr></tfoot>
-  </table></div>
-  <p class="rule">勤務時間は自動計算です。入は15分単位で切り上げ、退は15分単位で切り捨て、休憩を差し引きます。退が入より早い時刻なら翌日の退勤として計算します。</p>`;
+  </table></div>`;
   host.onchange = e => {
     const el = e.target; if (!el.dataset.f) return;
     const tr = el.closest("tr");
@@ -130,7 +129,7 @@ function serial(ym, d){ const { y, m } = ymParts(ym); return (Date.UTC(y, m - 1,
 function tcell(t){ const m = toMin(t); return m == null ? null : { t: "n", v: m / 1440, z: "h:mm" }; }
 function sheetFor(p, m, ym){
   const { y, m: mo } = ymParts(ym), ds = (m && m.days) || {};
-  const aoa = [[y, "年", mo, "月"], [], ["社員番号", p.no, "名前", p.name], [], ["日", "曜", "入", "退", "休憩", "勤務時間"]];
+  const aoa = [[y, "年", mo, "月"], [], ["社員番号", p.no || "", "名前", p.name], [], ["日", "曜", "入", "退", "休憩", "勤務時間"]];
   let total = 0;
   for (let d = 1; d <= daysIn(ym); d++){
     const day = ds[pad(d)] || {}, w = workMin(day); if (w != null) total += w;
@@ -155,7 +154,7 @@ export function downloadExcel(people, months, ym){
     const rows = [["年月", ymLabel(ym)], [], ["社員番号", "名前", "出勤日数", "勤務時間合計", "勤務時間(時間数)", "状態", "管理者修正(日)"]];
     people.forEach(p => {
       const m = months[p.id], s = summarize(m);
-      rows.push([p.no, p.name, s.days, { t: "n", v: s.total / 1440, z: "[h]:mm" }, Math.round(s.total / 60 * 100) / 100,
+      rows.push([p.no || "", p.name, s.days, { t: "n", v: s.total / 1440, z: "[h]:mm" }, Math.round(s.total / 60 * 100) / 100,
         !s.days ? "未入力" : m.status === "submitted" ? "申請済" : "入力中", s.edits]);
     });
     const ws = XLSX.utils.aoa_to_sheet(rows);
